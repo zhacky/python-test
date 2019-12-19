@@ -70,6 +70,7 @@ class ClientUpdateView(UpdateView):
         "email_address",
         "phone_number"
     ]
+    success_url = reverse_lazy("client_list")
 
 
 class ClientDeleteView(DeleteView):

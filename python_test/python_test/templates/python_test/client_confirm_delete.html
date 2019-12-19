@@ -5,6 +5,7 @@
     <form method="post">
     {% csrf_token %}
     <p>Are you sure you want to delete it?</p>
-    <button class="btn btn-primary" type="submit">Submit</button>
+    <button class="btn btn-primary" type="submit">Yes, Delete</button>
+        <a href="{% url "client_list" %}" class="btn btn-default">Cancel</a>
     </form>
 {% endblock content %}
