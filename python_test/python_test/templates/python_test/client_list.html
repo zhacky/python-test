@@ -7,6 +7,12 @@
         <div class="col-md-12">
             <form method="get" id="search-form">
                 <div class="input-group">
+                    <select name="filter-by" id="filter-by">
+                        <option value="name">Name</option>
+                        <option value="email">Email</option>
+                        <option value="phone">Phone</option>
+                        <option value="suburb">Suburb</option>
+                    </select>
                     <input type="text" class="form-control" placeholder="Search..." name="search" id="search" value="{{ request.GET.q }}">
                     <button class="btn btn-primary" type="submit">Search</button>
                 </div>

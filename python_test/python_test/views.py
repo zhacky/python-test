@@ -11,7 +11,6 @@ from python_test import models
 # Insert views here
 class ClientListView(ListView):
     model = models.Client
-
     fields = [
         "name",
         "street_address",
@@ -27,8 +26,17 @@ class ClientListView(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('search')
+        filter_by = self.request.GET.get('filter-by')
         if query:
-            return models.Client.objects.filter(name__contains=query)
+            if filter_by == 'name':
+                filtered_result = models.Client.objects.filter(name__contains=query)
+            elif filter_by == 'email':
+                filtered_result = models.Client.objects.filter(email_address__contains=query)
+            elif filter_by == 'phone':
+                filtered_result = models.Client.objects.filter(phone_number__contains=query)
+            else:
+                filtered_result = models.Client.objects.filter(suburb__contains=query)
+            return filtered_result
         else:
             return models.Client.objects.all()
 
