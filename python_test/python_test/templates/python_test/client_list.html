@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>List of Clients</h2>
+
+    <div class="row">
+        <div class="col-md-12">
+            <form method="get" id="search-form">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search..." name="search" id="search" value="{{ request.GET.q }}">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <br>
+
+    {% for client in object_list %}
+        <p>
+            {{ client.name }} <br>
+            {{ client.street_address }} <br>
+            {{ client.suburb }} <br>
+            {{ client.postcode }} <br>
+            {{ client.state }} <br>
+            {{ client.contact_name }} <br>
+            {{ client.email_address }} <br>
+            {{ client.phone_number }} <br>
+        </p>
+        <p><a href="{% url "client_update" client.id %}">Update client</a></p>
+        <p><a href="{% url "client_delete" client.id %}">Delete client</a></p>
+        {% if not forloop.last %}
+            <hr>
+        {% endif %}
+    {% endfor %}
+    <p><a href="{% url "client_create" %}">Add new client</a></p>
+{% endblock content %}

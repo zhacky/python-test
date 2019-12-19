@@ -16,8 +16,30 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.views.generic import TemplateView
+from django.urls import path
+from python_test import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', TemplateView.as_view(template_name="home.html"))
+    url(r'^$', TemplateView.as_view(template_name="home.html")),
+    path(
+        "client/",
+        views.ClientListView.as_view(),
+        name="client_list"
+    ),
+    path(
+        "client/create/",
+        views.ClientCreateView.as_view(),
+        name="client_create"
+    ),
+    path(
+        "client/<int:pk>",
+        views.ClientUpdateView.as_view(),
+        name="client_update"
+    ),
+    path(
+        "client/<int:pk>/delete/",
+        views.ClientDeleteView.as_view(),
+        name="client_delete"
+    ),
 ]
