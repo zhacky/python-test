@@ -30,6 +30,8 @@ class ClientListView(ListView):
         if query:
             if filter_by == 'name':
                 filtered_result = models.Client.objects.filter(name__contains=query)
+                if len(filtered_result) == 0:
+                    filtered_result = models.Client.objects.filter(contact_name__contains=query)
             elif filter_by == 'email':
                 filtered_result = models.Client.objects.filter(email_address__contains=query)
             elif filter_by == 'phone':

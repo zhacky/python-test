@@ -1,43 +1,72 @@
 {% extends "base.html" %}
 
+{% block css %}
+
+{% endblock css %}
 {% block content %}
     <h2>List of Clients</h2>
 
-    <div class="row">
+    <div class="row hidden">
         <div class="col-md-12">
-            <form method="get" id="search-form">
-                <div class="input-group">
-                    <select name="filter-by" id="filter-by">
-                        <option value="name">Name</option>
-                        <option value="email">Email</option>
-                        <option value="phone">Phone</option>
-                        <option value="suburb">Suburb</option>
-                    </select>
-                    <input type="text" class="form-control" placeholder="Search..." name="search" id="search" value="{{ request.GET.q }}">
-                    <button class="btn btn-primary" type="submit">Search</button>
-                </div>
-            </form>
+{#            <form method="get" id="search-form">#}
+{#                <div class="input-group">#}
+{#                    <select name="filter-by" id="filter-by">#}
+{#                        <option value="name">Name</option>#}
+{#                        <option value="email">Email</option>#}
+{#                        <option value="phone">Phone</option>#}
+{#                        <option value="suburb">Suburb</option>#}
+{#                    </select>#}
+{#                    <input type="text" class="form-control" placeholder="Search..." name="search" id="search">#}
+{#                    <button class="btn btn-primary" type="submit">Search</button>#}
+{#                </div>#}
+{#            </form>#}
         </div>
     </div>
 
     <br>
 
-    {% for client in object_list %}
-        <p>
-            {{ client.name }} <br>
-            {{ client.street_address }} <br>
-            {{ client.suburb }} <br>
-            {{ client.postcode }} <br>
-            {{ client.state }} <br>
-            {{ client.contact_name }} <br>
-            {{ client.email_address }} <br>
-            {{ client.phone_number }} <br>
-        </p>
-        <p><a href="{% url "client_update" client.id %}">Update client</a></p>
-        <p><a href="{% url "client_delete" client.id %}">Delete client</a></p>
-        {% if not forloop.last %}
-            <hr>
-        {% endif %}
-    {% endfor %}
-    <p><a href="{% url "client_create" %}">Add new client</a></p>
+    <p><a href="{% url "client_create" %}" class="btn-primary btn">Add new client</a></p>
+    <table class="table table-bordered" id="clientTable">
+        <thead class="alert-success">
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Suburb</th>
+            <th>State</th>
+            <th>Contact</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for client in object_list %}
+            <tr>
+                <td>{{ client.name }}</td>
+                <td>{{ client.street_address }}</td>
+                <td>{{ client.suburb }}</td>
+                <td>{{ client.state }}</td>
+                <td>{{ client.contact_name }}</td>
+                <td>{{ client.email_address }}</td>
+                <td>{{ client.phone_number }}</td>
+                <td><a href="{% url "client_update" client.id %}" class="btn btn-sm btn-success">Update</a></td>
+                <td><a href="{% url "client_delete" client.id %}" class="btn btn-sm btn-danger">Delete</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+
+    </table>
+    <p></p>
+    <p></p>
+
 {% endblock content %}
+
+{% block js %}
+    <script>
+        $(document).ready(function () {
+            $('#clientTable').DataTable();
+        });
+    </script>
+{% endblock js %}
